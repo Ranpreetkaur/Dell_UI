@@ -1,0 +1,60 @@
+.footer{
+	
+    height: 70px;
+   width:100%;
+	
+    position: fixed;
+    margin-top: 450px;
+  
+}
+.list{
+	    width: 48%;
+    display: inline;
+    float: left;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    height: 200px	;
+    background-color: #D6EAF8;
+    font-size: 20px;
+   font-weight:bold;
+}
+
+.hotelImg{
+	height: 100%;
+    float: left;
+}
+.faIcon{
+	float:right;
+}
+.fa-star:before{
+	color:yellow;
+	padding:10px;
+}
+.cuisine{
+	font-size: 16px;
+    text-align: center;
+    padding-top: 12px;
+    padding-bottom:15px;
+}
+.city{
+	font-size: 14px;
+    padding-top: 12px;
+    padding-bottom:15px;
+}
+.container1{
+	padding-left:50px;
+}
+.reviews{
+	text-align: center;
+    border-top: 2px solid grey;
+}
+.inputSearch{
+	width: 80%;
+    border-radius: 10px;
+    height: 40px;
+}
+.search_Div{
+	text-align: center;
+    padding: 0px 10px 10px 10px;
+}
