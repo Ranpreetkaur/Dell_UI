@@ -16,10 +16,10 @@ function csvToArray(text) {
 
 function getMainContainerContent(name, cuisine, rating, reviews) {
 	var content = "";
-	content += "<div class='col-sm-4'>";
+	content += "<div class='col-sm-4 restaurant_item'>";
 	content += "	<div class='card'>";
 	content += "		<div class='img_container'>";
-	content += "			<img src='Images/download.jpeg' alt='" + name + "_image' style='width:100%;height:100px; opacity:0.6'>";
+	content += "			<img class='restuarant_img' src='Images/download.jpeg' alt='" + name + "_image' >";
 	content += "			<div class='img_overlay'>";
 	content += "				<h4 id='restaurant_name'><b>" + name + "</b></h4>";
 	content += "			</div>";
@@ -53,14 +53,9 @@ function listOfRestaurants(data){
 
 		var mainContainerContent = getMainContainerContent(name, cuisine, rating, reviews);
 
-		if ((i % 3) == 0) {
-			mainContainerContent = "<div class='row content_row' style='margin-bottom:20px'>" + mainContainerContent + "</div>";
-			$('#main_content').append(mainContainerContent);
-		} else {
-			$('#main_content .content_row:last').append(mainContainerContent);
-		}
-			
+        $('#main_content').append(mainContainerContent);
     }
+    $('#search_param').quicksearch('.restaurant_item');
 }
 
 function sortByRating(a, b) {
@@ -71,6 +66,10 @@ function sortByReviews(a, b) {
     return b[5] - a[5];
 }
 
+function sortByRanking(a, b) {
+    return a[3] - b[3];
+}
+
 function pre_processing(data, sort_type) {
     csv_data = csvToArray(data);
     csv_data.shift();
@@ -78,8 +77,7 @@ function pre_processing(data, sort_type) {
         csv_data.sort(sortByRating);
     } else if(sort_type == "reviews") {
         csv_data.sort(sortByReviews);
-    }
-}
+    }}
 
 function ajax_call(sort_type) {
     $.ajax({
@@ -94,7 +92,7 @@ function ajax_call(sort_type) {
 
     $("#pagination_div").pagination({
         dataSource:csv_data,
-        pageSize: 52,
+        pageSize: 45,
         showGoInput: true,
         showGoButton: true,
         callback: function(csv_data, pagination) {

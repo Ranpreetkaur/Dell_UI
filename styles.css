@@ -1,6 +1,8 @@
 .card {
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	transition: 0.3s;
+    height: 300px;
+    margin-bottom: 18px;
 }
 
 .card:hover {
@@ -34,4 +36,10 @@
 
 #search_param {
 	border-radius: 3px 0px 0px 3px;
+}
+
+.restuarant_img {
+    height: 180px;
+    width: 100%;
+    opacity: 0.6;
 }
