@@ -19,7 +19,7 @@ function getMainContainerContent(name, cuisine, rating, reviews) {
 	content += "<div class='col-sm-4 restaurant_item'>";
 	content += "	<div class='card'>";
 	content += "		<div class='img_container'>";
-	content += "			<img class='restuarant_img' src='Images/download.jpeg' alt='" + name + "_image' >";
+	content += "			<img class='restuarant_img' src='images/download.jpeg' alt='" + name + "_image' >";
 	content += "			<div class='img_overlay'>";
 	content += "				<h4 id='restaurant_name'><b>" + name + "</b></h4>";
 	content += "			</div>";
@@ -82,7 +82,7 @@ function pre_processing(data, sort_type) {
 function ajax_call(sort_type) {
     $.ajax({
         async: false,
-        url:"euro_restrobeee02c.csv",
+        url:"data/euro_restrobeee02c.csv",
         dataType: "text",
         type: "GET",
         success:function(data){
