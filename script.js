@@ -1,74 +1,3 @@
-//alert("testData");
-$(document).ready(function(){
-
-$.ajax({
-	//headers:{ 'Access-Control-Allow-Origin': 'file:///C:/Users/HP-PC/Documents/Dell_UIChallenge/euro_restrobeee02c.csv'},
- url:"test.csv",
- dataType: "text",
- type: "GET",
- success:function(data){
-
-
- 	//var testData= data.split(/\r?\n|\r/);
- 	//alert(testData);
-  listOfRestaurants(data);
-
- } 
-
-});
-
-
-
-
-});
-
-function listOfRestaurants(data){
-	//alert(data);
-	
-	var appendText='';
-
-
-	
-	 var restaurantArray= csvToArray(data);
-      for(var i=1;i<6;i++){
-      	//console.log(data[i].split(",")[0]);
-
-      
-      	//console.log(parsed);
-        
-         
-         var name= restaurantArray[i][0];
-         var rating =restaurantArray[i][4];
-         var cuisine = restaurantArray[i][2];
-         var cuisine = cuisine.replace('[',"");
-         var cuisine = cuisine.replace(']','');
-         var city = restaurantArray[i][1];
-         var reviews=restaurantArray[i][5];
-
-         
-           
-         appendText += "<div class='list'><span class='name'>"+ name+"</span>";
-    appendText += "<img class='hotelImg' src='Images/fancy-resort-hotel.png'>";
-    appendText += "<span class='faIcon'><i class='fa fa-star' aria-hidden='true'></i>"+rating+"</span>";
-    appendText +="<div class='cuisine'>"+ cuisine +"</div>";
-     appendText +="<div class='city'>"+ city +"</div>";
-     appendText +="<div class='reviews'>"+ reviews +"</div>";
-
-
-
-         appendText +="</div>";
-
-
-         $('.mainContainer').html(appendText);
-
-      }
-
-
-	//appendText +="<div class='list'>" +data[i].Name"</div>";
-
-
-}
-
 function csvToArray(text) {
     let p = '', row = [''], ret = [row], i = 0, r = 0, s = !0, l;
     for (l of text) {
@@ -85,5 +14,97 @@ function csvToArray(text) {
     return ret;
 };
 
+function getMainContainerContent(name, cuisine, rating, reviews) {
+	var content = "";
+	content += "<div class='col-sm-4'>";
+	content += "	<div class='card'>";
+	content += "		<div class='img_container'>";
+	content += "			<img src='Images/download.jpeg' alt='" + name + "_image' style='width:100%;height:100px; opacity:0.6'>";
+	content += "			<div class='img_overlay'>";
+	content += "				<h4 id='restaurant_name'><b>" + name + "</b></h4>";
+	content += "			</div>";
+	content += "		</div>";
+	content += "		<div class='card_container'>";
+	content += "			<div class='row'>";
+	content += "				<div class='col-sm-9'>";
+	content += "					<p><b>Cuisine: </b>" + cuisine + "</p>";
+	content += "					<p><b>Reviews: </b>" + reviews + "</p>";
+	content += "				</div>";
+	content += "				<div class='col-sm-3'>";
+	content += "					<span class='rating'><i class='fa fa-star' style='color:yellow;'></i>&nbsp;&nbsp;" + rating + "</span>";
+	content += "				</div>";
+	content += "			</div>";
+	content += "		</div>";
+	content += "	</div>";
+	content += "</div>";
 
-	
+	return content;
+}
+
+function listOfRestaurants(data){
+    $("#main_content").html("");
+    for (var i = 0; i < data.length; i++) {
+        var name    =   data[i][0];
+        var city    =   data[i][1];
+        var cuisine =   data[i][2].replace(/\[|\]|'/g,"");
+        var ranl    =   data[i][3];
+        var rating  =   data[i][4];
+        var reviews =   data[i][5];
+
+		var mainContainerContent = getMainContainerContent(name, cuisine, rating, reviews);
+
+		if ((i % 3) == 0) {
+			mainContainerContent = "<div class='row content_row' style='margin-bottom:20px'>" + mainContainerContent + "</div>";
+			$('#main_content').append(mainContainerContent);
+		} else {
+			$('#main_content .content_row:last').append(mainContainerContent);
+		}
+			
+    }
+}
+
+function sortByRating(a, b) {
+	return b[4] - a[4];
+}
+
+function sortByReviews(a, b) {
+    return b[5] - a[5];
+}
+
+function pre_processing(data, sort_type) {
+    csv_data = csvToArray(data);
+    csv_data.shift();
+    if (sort_type == "rating") {
+        csv_data.sort(sortByRating);
+    } else if(sort_type == "reviews") {
+        csv_data.sort(sortByReviews);
+    }
+}
+
+function ajax_call(sort_type) {
+    $.ajax({
+        async: false,
+        url:"euro_restrobeee02c.csv",
+        dataType: "text",
+        type: "GET",
+        success:function(data){
+            pre_processing(data, sort_type);
+		}
+    });
+
+    $("#pagination_div").pagination({
+        dataSource:csv_data,
+        pageSize: 52,
+        showGoInput: true,
+        showGoButton: true,
+        callback: function(csv_data, pagination) {
+            listOfRestaurants(csv_data)
+        }
+    });
+}
+
+var csv_data = null;
+
+$(document).ready(function(){
+    ajax_call("");
+});

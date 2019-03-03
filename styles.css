@@ -1,60 +1,37 @@
-.footer{
-	
-    height: 70px;
-   width:100%;
-	
-    position: fixed;
-    margin-top: 450px;
-  
-}
-.list{
-	    width: 48%;
-    display: inline;
-    float: left;
-    text-align: center;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    height: 200px	;
-    background-color: #D6EAF8;
-    font-size: 20px;
-   font-weight:bold;
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	transition: 0.3s;
 }
 
-.hotelImg{
-	height: 100%;
-    float: left;
+.card:hover {
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-.faIcon{
-	float:right;
+
+.card_container {
+	padding: 2px 16px;
 }
-.fa-star:before{
-	color:yellow;
-	padding:10px;
-}
-.cuisine{
-	font-size: 16px;
-    text-align: center;
-    padding-top: 12px;
-    padding-bottom:15px;
-}
-.city{
-	font-size: 14px;
-    padding-top: 12px;
-    padding-bottom:15px;
-}
-.container1{
-	padding-left:50px;
-}
-.reviews{
+
+.img_overlay {
+	transition: .5s ease;
+	opacity: 1;
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -20%);
+	-ms-transform: translate(-50%, -20%);
 	text-align: center;
-    border-top: 2px solid grey;
+	vertical-align: center;
 }
-.inputSearch{
-	width: 80%;
-    border-radius: 10px;
-    height: 40px;
+
+#restaurant_name {
+	color: #000;
+	font-size: 20px;
 }
-.search_Div{
-	text-align: center;
-    padding: 0px 10px 10px 10px;
+
+.rating {
+	float: right;
+}
+
+#search_param {
+	border-radius: 3px 0px 0px 3px;
 }
